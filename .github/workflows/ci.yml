@@ -10,7 +10,7 @@ jobs:
         python-version: [3.8, 3.9, 3.10]
 
     steps:
-    - name: Checkout code
+    - name: checkout code
       uses: actions/checkout@v3
 
     - name: setup Python
@@ -24,7 +24,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Run tests
+    - name: run tests
       run: |
         cd chapter3
         python -m unittest discover
