@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runson: ubuntu-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
