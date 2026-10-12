@@ -3,9 +3,32 @@ on: [push]
 
 jobs:
   build:
-    runs-on: unbuntu-latest
+    runson: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Testing Workflow
-      run: echo "Hello Fairuz"
+
+    - name: setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ martrix.python-version }}
+
+    - name: install dependencies
+      run: |
+        cd chapter3
+        pythin -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run tests
+      run: |
+        cd chapter3
+        python -m unittest discover
+
+    - name: notify us of success
+      run: echo "Tests passed successfully on python ${{ matrix.python-version }}!"
+      if: success() 
